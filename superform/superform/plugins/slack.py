@@ -207,7 +207,8 @@ def slack_verify_authorization():
 
     print("channel_config", channel_config)
     # normally should redirect to the channel page or to the page that publish a post
-    publishing = Publishing.query.filter_by(post_id=post_id, channel_id=channel_id).first()
+    publishing = Publishing.query.filter_by(post_id=post_id, channel_id=channel_id).\
+        order_by(Publishing.num_version.desc()).first()
     print("init publishing", publishing)
     run(publishing, json.dumps(channel_config))
 
